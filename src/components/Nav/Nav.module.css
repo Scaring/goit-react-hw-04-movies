@@ -1,0 +1,26 @@
+.navigation {
+  height: 50px;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0;
+  padding-left: 20px;
+  box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.75);
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.navigation__link:not(last-child) {
+  margin-right: 20px;
+}
+
+.navigation__link:hover {
+  color: rgb(255, 117, 117);
+}
+
+.navigation__link_active {
+  color: rgb(187, 87, 87);
+}
