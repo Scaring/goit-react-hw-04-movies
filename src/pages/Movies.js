@@ -3,8 +3,9 @@ import T from 'prop-types';
 
 import Search from '../components/Search/Search';
 import MoviesList from '../components/MoviesList/MoviesList';
+
 import * as movieAPI from '../services/movies-api';
-import mapper from '../services/mapper';
+import { movieMapper } from '../services/mappers';
 
 export default class Movies extends Component {
   static propTypes = {
@@ -19,7 +20,7 @@ export default class Movies extends Component {
     adressLineSearchParam &&
       movieAPI.getMoviByQuery(adressLineSearchParam).then(data => {
         this.setState({
-          movies: mapper(data.results),
+          movies: movieMapper(data.results),
         });
       });
   }
@@ -37,7 +38,7 @@ export default class Movies extends Component {
       .getMoviByQuery(query)
       .then(data => {
         this.setState({
-          movies: mapper(data.results),
+          movies: movieMapper(data.results),
         });
       })
       .then(() =>

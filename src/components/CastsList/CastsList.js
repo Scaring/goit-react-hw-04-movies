@@ -1,28 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import T from 'prop-types';
+
+import * as movieAPI from '../../services/movies-api';
 import CastsListItem from './CastsListItem';
 
-const CastsList = ({ casts }) => {
-  return (
-    <ul>
-      {casts.map(cast => (
-        <li key={cast.cast_id}>
-          <CastsListItem {...cast} />
-        </li>
-      ))}
-    </ul>
-  );
-};
+import { castsMapper } from '../../services/mappers';
 
-CastsList.propTypes = {
-  casts: T.arrayOf(
-    T.shape({
-      name: T.string.isRequired,
-      character: T.string.isRequired,
-      profile: T.string.isRequired,
-      id: T.number,
-    }),
-  ),
-};
+export default class CastsList extends Component {
+  static propTypes = {
+    id: T.number.isRequired,
+  };
 
-export default CastsList;
+  state = {
+    casts: [],
+  };
+
+  componentDidMount() {
+    const { id } = this.props;
+
+    movieAPI.getMovieCasts(id).then(data => {
+      this.setState({ casts: castsMapper(data.cast) });
+    });
+  }
+
+  render() {
+    const { casts } = this.state;
+
+    return (
+      <ul>
+        {casts.map(cast => (
+          <li key={cast.cast_id}>
+            <CastsListItem {...cast} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
